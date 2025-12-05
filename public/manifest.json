@@ -1,0 +1,10 @@
+{
+  "manifest_version": 3,
+  "name": "Briefly",
+  "version": "1.0",
+  "description": "Highlight and summarize text on any webpage using AI.",
+  "permissions": ["activeTab", "scripting", "contextMenus", "storage"],
+  "action": {
+    "default_popup": "index.html"
+  }
+}
