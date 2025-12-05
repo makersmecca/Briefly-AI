@@ -200,7 +200,7 @@ const FrontPage = () => {
                     : "border-gray-400 border-t-gray-500"
                 }`}
               ></div>
-              <span>Thinking...</span>
+              <span>Summmarizing...</span>
             </div>
           </div>
         )}

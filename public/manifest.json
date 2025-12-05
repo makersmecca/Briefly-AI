@@ -3,9 +3,21 @@
   "name": "Briefly",
   "version": "1.0",
   "description": "Highlight and summarize text on any webpage using AI.",
+
+  "icons": {
+    "16": "briefly-logo-16.png",
+    "48": "briefly-logo-48.png",
+    "128": "briefly-logo-128.png"
+  },
+
   "permissions": ["activeTab", "scripting", "contextMenus", "storage"],
   "action": {
-    "default_popup": "index.html"
+    "default_popup": "index.html",
+    "default_icon": {
+      "16": "briefly-logo-16.png",
+      "48": "briefly-logo-48.png",
+      "128": "briefly-logo-128.png"
+    }
   },
   "host_permissions": [
     "https://huggingface.co/*",
