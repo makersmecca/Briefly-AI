@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { summarizeText } from "../../LLM/summarizer";
 
 const FrontPage = () => {
@@ -9,10 +9,8 @@ const FrontPage = () => {
   const handleSubmit = async () => {
     const query = inputQuery.trim();
     if (!query) return;
-
     setLoading(true);
     setSummaryText("");
-
     try {
       const summary = await summarizeText(query);
       setSummaryText(summary);
@@ -24,8 +22,18 @@ const FrontPage = () => {
     }
   };
 
+  useEffect(() => {
+    chrome.storage.local.get("selectedText", (data) => {
+      if (data.selectedText) {
+        setInputQuery(data.selectedText);
+        chrome.storage.local.remove("selectedText");
+        handleSubmit();
+      }
+    });
+  }, []);
+
   return (
-    <div className="w-96 p-4 flex flex-col gap-3 bg-white">
+    <div className="w-96 p-4 flex flex-col gap-3 bg-white border rounded-2xl">
       <h2 className="text-lg font-semibold text-gray-800">AI Summarizer</h2>
 
       <textarea
