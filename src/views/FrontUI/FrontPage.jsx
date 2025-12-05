@@ -106,16 +106,24 @@ const FrontPage = () => {
 
   return (
     <div
-      className={`w-96 h-[480px] flex flex-col p-4 ${
+      className={`w-96 min-h-[200px] max-h-[480px] flex flex-col p-4 ${
         isDarkMode ? "bg-gray-800 text-white" : "bg-white text-gray-900"
       }`}
     >
       <div className="flex justify-between items-center mb-3">
-        <div className="text-xl font-semibold">
+        <div className="flex items-center text-xl font-semibold">
           Briefly{" "}
-          <span className={`${isDarkMode ? "" : "text-[#B77466] font-bold"}`}>
+          <span
+            className={`${isDarkMode ? "" : "text-[#B77466] font-bold"} mx-0.5`}
+          >
             AI
           </span>
+          <img
+            src={`/briefly-logo-alt${isDarkMode ? "-dark" : ""}.png`}
+            className={`${isDarkMode ? "mt-0.5" : ""}`}
+            width={30}
+            height={30}
+          />
         </div>
 
         <label className="flex cursor-pointer select-none items-center">
@@ -212,22 +220,19 @@ const FrontPage = () => {
 
       <div className="flex items-center mt-2 gap-2">
         <textarea
-          className={`flex-1 text-lg resize-none rounded-md p-2 border ${
-            isDarkMode
-              ? "bg-gray-700 border-gray-600 text-white focus:ring-blue-400"
-              : "bg-white border-[#B77466] text-gray-900 focus:ring-blue-500"
-          } 
-          ${
-            isDarkMode
-              ? "text-white placeholder-gray-300 placeholder:text-lg"
-              : "text-gray-900 placeholder-gray-500 placeholder:text-lg"
-          }
+          className={`flex-1 text-lg resize-none rounded-xl p-2 border 
+            ${
+              isDarkMode
+                ? "bg-gray-700 border-gray-600 text-white placeholder-gray-300 placeholder:text-lg focus:outline-gray-200 focus:ring-1 scrollbar-dark"
+                : "bg-white border-[#B77466] text-gray-900 placeholder-gray-500 placeholder:text-lg focus:outline-[#D58F80] focus:ring-1 focus:border-[#D58F80] scrollbar-light"
+            } 
           `}
           placeholder="Enter text to summarize..."
           value={inputQuery}
           onChange={(e) => setInputQuery(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
           disabled={loading}
+          rows={inputQuery?.length > 100 ? "4" : "1"}
         />
 
         <button
