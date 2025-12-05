@@ -1,1 +1,6 @@
 @import "tailwindcss";
+img,
+video {
+  max-width: none;
+  height: none;
+}
