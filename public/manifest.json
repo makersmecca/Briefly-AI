@@ -6,5 +6,19 @@
   "permissions": ["activeTab", "scripting", "contextMenus", "storage"],
   "action": {
     "default_popup": "index.html"
-  }
+  },
+  "host_permissions": [
+    "https://huggingface.co/*",
+    "https://cdn.jsdelivr.net/*",
+    "https://cdn.huggingface.co/*"
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["models/t5-small/*", "models/t5-small/onnx/*"],
+      "matches": ["<all_urls>"]
+    }
+  ]
 }
