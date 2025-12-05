@@ -1,7 +1,11 @@
-import "./App.css";
+import FrontPage from "./views/FrontUI/FrontPage";
 
 function App() {
-  return <>Hello Briefly</>;
+  return (
+    <>
+      <FrontPage />
+    </>
+  );
 }
 
 export default App;

@@ -1,0 +1,40 @@
+.query-form {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.query-form label {
+  font-weight: 500;
+  color: #333;
+}
+
+.query-form input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.query-form input:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.query-form button {
+  padding: 10px 20px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.query-form button:hover {
+  background: #0056b3;
+}
