@@ -165,7 +165,9 @@ const FrontPage = () => {
             {m.from === "ai" && (
               <>
                 <button
-                  className={`w-[100px] h-[30px] rounded-3xl absolute text-md flex items-center justify-center gap-2 right-2.5 top-1.5 cursor-pointer bg-gray-300 hover:bg-gray-400 ${
+                  className={`${
+                    copiedIndex === i ? "w-[120px]" : "w-[100px]"
+                  } h-[30px] rounded-3xl absolute text-md flex items-center justify-center gap-2 right-2.5 top-1.5 cursor-pointer bg-gray-300 hover:bg-gray-400 ${
                     isDarkMode
                       ? "text-gray-800 hover:text-gray-900 font-semibold"
                       : "text-gray-500 hover:text-gray-600 font-semibold"
