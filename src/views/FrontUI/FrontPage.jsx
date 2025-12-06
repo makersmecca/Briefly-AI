@@ -10,7 +10,6 @@ const FrontPage = () => {
 
   const bottomRef = useRef(null);
 
-  //scroll to bottom on new message
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
