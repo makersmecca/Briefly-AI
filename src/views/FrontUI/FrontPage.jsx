@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { summarizeText } from "../../LLM/summarizer";
 
+const MAX_MESSAGES = 20;
+
 const FrontPage = () => {
   const [inputQuery, setInputQuery] = useState("");
   const [messages, setMessages] = useState([]);
@@ -15,18 +17,30 @@ const FrontPage = () => {
   }, [messages]);
 
   useEffect(() => {
-    chrome.storage.local.get(["selectedText", "darkMode"], (data) => {
-      if (typeof data.darkMode !== "undefined") {
-        setIsDarkMode(Boolean(data.darkMode));
+    chrome.storage.local.get(
+      ["selectedText", "darkMode", "chatHistory"], //load saved settings and chat history
+      (data) => {
+        if (data.chatHistory) {
+          setMessages(data.chatHistory.slice(-MAX_MESSAGES));
+        }
+
+        if (typeof data.darkMode !== "undefined") {
+          setIsDarkMode(Boolean(data.darkMode));
+        }
+
+        if (data.selectedText) {
+          const text = data.selectedText;
+          setInputQuery(text);
+          chrome.storage.local.remove("selectedText");
+          sendMessage(text);
+        }
       }
-      if (data.selectedText) {
-        const text = data.selectedText;
-        setInputQuery(text);
-        chrome.storage.local.remove("selectedText");
-        sendMessage(text); //auto send query for summarizing when send from the webpage popup menu
-      }
-    });
+    );
   }, []);
+
+  useEffect(() => {
+    chrome.storage.local.set({ chatHistory: messages }); //save chat history
+  }, [messages]);
 
   const handleThemeChange = (e) => {
     const next =
@@ -35,37 +49,41 @@ const FrontPage = () => {
     chrome.storage.local.set({ darkMode: next });
   };
 
+  const addMessage = (newMessage) => {
+    setMessages((prev) => {
+      const updated = [...prev, newMessage];
+      return updated.slice(-MAX_MESSAGES);
+    });
+  };
+
   const sendMessage = async (queryinput) => {
     const text = queryinput.trim();
     if (!text) return;
+
+    // User message
+    addMessage({ from: "user", text });
+
     if (text.length <= 30) {
-      setMessages((prev) => [...prev, { from: "user", text }]);
-      setMessages((prev) => [
-        ...prev,
-        {
-          from: "ai",
-          text: "I need some more context for summarization. Can you please provide a longer text (at least 30 characters)?",
-        },
-      ]);
+      addMessage({
+        from: "ai",
+        text: "I need some more context for summarization. Can you please provide a longer text (at least 30 characters)?",
+      });
       setInputQuery("");
       return;
     }
-    setMessages((prev) => [...prev, { from: "user", text }]);
+
     setInputQuery("");
     setLoading(true);
 
     try {
       const summary = await summarizeText(text);
-      setMessages((prev) => [...prev, { from: "ai", text: summary }]);
+      addMessage({ from: "ai", text: summary });
     } catch (err) {
       console.error("Summarization error:", err);
-      setMessages((prev) => [
-        ...prev,
-        {
-          from: "ai",
-          text: "Uh oh! An error occurred while summarizing. Please try in some time",
-        },
-      ]);
+      addMessage({
+        from: "ai",
+        text: "Uh oh! An error occurred while summarizing. Please try in some time",
+      });
     } finally {
       setLoading(false);
     }
