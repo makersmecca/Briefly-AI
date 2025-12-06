@@ -32,7 +32,7 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["models/t5-small/*", "models/t5-small/onnx/*"],
+      "resources": ["models/flan-t5-small/*", "models/flan-t5-small/onnx/*"],
       "matches": ["<all_urls>"]
     }
   ]
