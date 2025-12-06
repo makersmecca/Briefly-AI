@@ -160,7 +160,7 @@ const FrontPage = () => {
         {messages.map((m, i) => (
           <div
             key={i}
-            className={`relative max-w-[85%] rounded-xl text-lg whitespace-pre-wrap ${
+            className={`relative max-w-[85%] rounded-xl text-lg whitespace-pre-wrap wrap-break-word ${
               m.from === "user"
                 ? isDarkMode
                   ? "p-4 ml-auto bg-[#607B8F] text-white"
