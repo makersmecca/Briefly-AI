@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { summarizeText } from "../../LLM/summarizer";
 
-const MAX_MESSAGES = 20;
+const MAX_MESSAGES = 10; //maximum number of messages to keep in chat history
 
 const FrontPage = () => {
   const [inputQuery, setInputQuery] = useState("");
@@ -16,7 +16,7 @@ const FrontPage = () => {
     if (messagesEndRef.current) {
       messagesEndRef.current.parentElement.scrollTo({
         top: messagesEndRef.current.parentElement.scrollHeight,
-        behavior: "smooth"
+        behavior: "smooth",
       });
     }
   }, [messages]);
