@@ -1,0 +1,39 @@
+{
+  "manifest_version": 3,
+  "name": "Briefly",
+  "version": "1.0",
+  "description": "Highlight and summarize text on any webpage using AI.",
+
+  "icons": {
+    "16": "briefly-logo-16.png",
+    "48": "briefly-logo-48.png",
+    "128": "briefly-logo-128.png"
+  },
+
+  "permissions": ["activeTab", "scripting", "contextMenus", "storage"],
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": {
+      "16": "briefly-logo-16.png",
+      "48": "briefly-logo-48.png",
+      "128": "briefly-logo-128.png"
+    }
+  },
+  "host_permissions": [
+    "https://huggingface.co/*",
+    "https://cdn.jsdelivr.net/*",
+    "https://cdn.huggingface.co/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["models/flan-t5-small/*", "models/flan-t5-small/onnx/*"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
