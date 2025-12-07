@@ -23,14 +23,14 @@ function preprocessText(text) {
 }
 
 function buildPrompt(text) {
-  const cleaned = preprocessText(text);
-  if (cleaned.split(" ").length < 3) {
-    return `Rewrite this text in correct English: ${cleaned}`;
-  }
-  if (cleaned.length < 100) {
-    return `Summarize this text in one clear sentence: ${cleaned}`;
-  }
-  return `Summarize the following text in 2–3 sentences, keeping all factual information accurate: ${cleaned}`;
+  const cleanedText = preprocessText(text);
+  return `Summarize the text. 
+  Keep the meaning accurate. 
+  If it is over 200 characters, use 2–3 sentences or more.
+  If it is under 200 characters, explain the meaning in at least 2 sentences without copying the text. 
+  If short, do not copy it; summarize the idea in 1 sentence. 
+  If poetic, explain the overall message. 
+  Text: ${cleanedText}`;
 }
 
 export async function summarizeText(text) {
