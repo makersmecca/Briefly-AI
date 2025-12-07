@@ -10,10 +10,15 @@ const FrontPage = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [copiedIndex, setCopiedIndex] = useState(null);
 
-  const bottomRef = useRef(null);
+  const messagesEndRef = useRef(null);
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (messagesEndRef.current) {
+      messagesEndRef.current.parentElement.scrollTo({
+        top: messagesEndRef.current.parentElement.scrollHeight,
+        behavior: "smooth"
+      });
+    }
   }, [messages]);
 
   useEffect(() => {
@@ -232,7 +237,7 @@ const FrontPage = () => {
           </div>
         )}
 
-        <div ref={bottomRef}></div>
+        <div ref={messagesEndRef}></div>
       </div>
 
       <div className="flex items-center mt-2 gap-2">
